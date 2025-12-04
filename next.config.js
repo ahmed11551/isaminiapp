@@ -15,6 +15,19 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.placeholder.com',
+      },
+    ],
+    unoptimized: true, // Для Telegram Mini App может быть полезно
+  },
 };
 
 module.exports = nextConfig;

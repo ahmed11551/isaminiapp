@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Product } from '@/types';
 import { useCart } from '@/hooks/useCart';
 
@@ -9,6 +10,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
+  const [imageError, setImageError] = useState(false);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('ru-RU', {
@@ -21,16 +23,15 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="bg-telegram-secondary rounded-lg overflow-hidden shadow-lg">
       <div className="aspect-square bg-gray-700 relative">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={product.image}
+          src={imageError ? 'https://via.placeholder.com/300x300?text=No+Image' : product.image}
           alt={product.name}
           className="w-full h-full object-cover"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300x300?text=No+Image';
-          }}
+          onError={() => setImageError(true)}
         />
         {!product.inStock && (
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
             <span className="text-white font-bold">Нет в наличии</span>
           </div>
         )}

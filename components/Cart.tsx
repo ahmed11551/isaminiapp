@@ -4,6 +4,10 @@ import { useCart } from '@/hooks/useCart';
 import { useTelegram } from '@/hooks/useTelegram';
 import { useState, useEffect } from 'react';
 
+interface ImageErrorState {
+  [key: string]: boolean;
+}
+
 interface CartProps {
   isOpen: boolean;
   onClose: () => void;
@@ -16,6 +20,7 @@ export default function Cart({ isOpen, onClose }: CartProps) {
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
+  const [imageErrors, setImageErrors] = useState<ImageErrorState>({});
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('ru-RU', {
@@ -132,13 +137,12 @@ export default function Cart({ isOpen, onClose }: CartProps) {
                   key={item.product.id}
                   className="bg-telegram-secondary rounded-lg p-4 flex gap-4"
                 >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={item.product.image}
+                    src={imageErrors[item.product.id] ? 'https://via.placeholder.com/80x80?text=No+Image' : item.product.image}
                     alt={item.product.name}
-                    className="w-20 h-20 object-cover rounded"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/80x80?text=No+Image';
-                    }}
+                    className="w-20 h-20 object-cover rounded flex-shrink-0"
+                    onError={() => setImageErrors(prev => ({ ...prev, [item.product.id]: true }))}
                   />
                   <div className="flex-1">
                     <h3 className="text-white font-semibold mb-1">{item.product.name}</h3>
