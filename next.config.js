@@ -25,6 +25,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.placeholder.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.isa-access.ru',
+      },
+      {
+        protocol: 'https',
+        hostname: 'isa-access.ru',
+      },
     ],
     unoptimized: true, // Для Telegram Mini App может быть полезно
   },
