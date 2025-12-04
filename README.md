@@ -51,6 +51,27 @@ npm run dev
 
 Отредактируйте файл `data/products.ts` и добавьте свои товары в массив `products`.
 
+### Использование кодов товаров
+
+Для автоматического получения изображений с сайта isa-access.ru добавьте поле `code`:
+
+```typescript
+{
+  id: 'product-id',
+  code: 'product-code-from-isa-access', // Код товара с сайта
+  name: 'Название товара',
+  description: 'Описание',
+  price: 1000,
+  image: 'https://www.isa-access.ru/upload/iblock/product-code.jpg',
+  category: 'electronics',
+  inStock: true,
+}
+```
+
+Система автоматически сформирует URL изображения по коду: `https://www.isa-access.ru/upload/iblock/{code}.jpg`
+
+Подробнее см. [docs/PRODUCT_IMAGES.md](docs/PRODUCT_IMAGES.md)
+
 ## Интеграция оплаты
 
 Для полноценной интеграции оплаты через Telegram Payments:

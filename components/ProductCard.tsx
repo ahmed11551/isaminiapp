@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Product } from '@/types';
 import { useCart } from '@/hooks/useCart';
+import { getProductImageUrl } from '@/utils/productImage';
 
 interface ProductCardProps {
   product: Product;
@@ -11,6 +12,16 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
   const [imageError, setImageError] = useState(false);
+  const [imageUrl, setImageUrl] = useState(product.image);
+
+  // Если есть код товара, используем его для получения изображения
+  useEffect(() => {
+    if (product.code && !product.image.includes('isa-access.ru')) {
+      setImageUrl(getProductImageUrl(product.code));
+    } else {
+      setImageUrl(product.image);
+    }
+  }, [product.code, product.image]);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('ru-RU', {
@@ -25,10 +36,19 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="aspect-square bg-gray-700 relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={imageError ? 'https://via.placeholder.com/300x300?text=No+Image' : product.image}
+          src={imageError ? 'https://via.placeholder.com/300x300?text=No+Image' : imageUrl}
           alt={product.name}
           className="w-full h-full object-cover"
-          onError={() => setImageError(true)}
+          onError={() => {
+            if (!imageError) {
+              setImageError(true);
+              // Пробуем fallback на оригинальное изображение
+              if (imageUrl !== product.image) {
+                setImageUrl(product.image);
+                setImageError(false);
+              }
+            }
+          }}
         />
         {!product.inStock && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">

@@ -29,6 +29,7 @@ export const products: Product[] = [
   // Защитные стекла и плёнки
   {
     id: 'gl-27-remax-iph16pm',
+    code: 'gl-27-remax-iph16pm', // Код товара для получения изображения
     name: 'Защитное стекло iPh 16 Pro Max (6.9) Medicine GL-27 REMAX',
     description: 'Защитное стекло для iPhone 16 Pro Max с функцией Medicine. Высококачественная защита экрана от царапин и ударов.',
     price: 368,
@@ -38,6 +39,7 @@ export const products: Product[] = [
   },
   {
     id: 'case-silicone-iph16pm-black',
+    code: 'case-silicone-iph16pm-black', // Код товара для получения изображения
     name: 'Чехол силиконовый iPh 16 Pro Max (6.9) -1 черная',
     description: 'Силиконовый чехол для iPhone 16 Pro Max черного цвета. Защита от ударов и царапин. Упаковка: 300 шт/кор.',
     price: 105,
@@ -48,6 +50,7 @@ export const products: Product[] = [
   // Аудио аксессуары
   {
     id: 'mic-x31-m2-isa',
+    code: 'x31-m2-isa', // Код товара для получения изображения
     name: 'Микрофон беспроводной Type-C+Lightning X31-M2 ISA',
     description: 'Беспроводной микрофон с поддержкой Type-C и Lightning. Идеален для видеосъемки и стриминга. Упаковка: 400 шт/кор.',
     price: 1890,

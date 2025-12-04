@@ -1,5 +1,6 @@
 export interface Product {
   id: string;
+  code?: string; // Код товара с сайта isa-access.ru
   name: string;
   description: string;
   price: number;
